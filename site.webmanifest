@@ -1,0 +1,30 @@
+{
+	"short_name": "Contre Sozial",
+	"name": "Contre Sozial",
+	"icons": [
+	  {
+		"src": "images/icons/icon72.png",
+		"sizes": "72x72",
+		"type": "image/png"
+	  },
+	  {
+		"src": "images/icons/icon96.png",
+		"sizes": "96x96",
+		"type": "image/png"
+	  },
+	  {
+		"src": "images/icons/icon128.png",
+		"sizes": "128x128",
+		"type": "image/png"
+	  },
+	  {
+		"src": "images/icons/icon384.png",
+		"sizes": "384x384",
+		"type": "image/png"
+	  }
+	],
+	"start_url": "/",
+	"background_color": "#7AA0CB",
+	"theme_color": "#7AA0CB",
+	"display": "fullscreen"
+  }
