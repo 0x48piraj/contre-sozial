@@ -13,6 +13,16 @@ Contre Sozial tries to eliminate the biggest problem in social media networks, t
 2. Train a machine learning model to predict a set of the scroll event patterns.
 3. Detect foreground running overlay activities simultaneously ([Current Activity - android-TopActivity](https://github.com/109021017/android-TopActivity))
 
+### Problems in getting global touch events
+
+- Putting a transparent layout which covers the phone screen and then receive the touch events and dynamically removing the glass so that the event could be passed to below the glass and then dynamically inserting the glass again. But the drawback was that it require two times tap which is not feasible (first tap would give the touch coordinates and second would be passed below).
+
+- Using the flag `FLAG_WATCH_OUTSIDE_TOUCH` ([Monitor Screen Touch Event in Android](http://jhshi.me/2014/11/09/monitor-screen-touch-event-in-android/index.html)) but getting touch coordinates as (0,0) as the Android framework imposes security that no other process can get touch points inside other process.
+
+- Running command `adb shell getevent -l` through code but it does not accepts touch events (although, using `adb shell sendevent` enables one to send global touch events.
+
+- Using shell script with `getevent` command, writing the touch events to a file then parsing the touch events to get readable coordinates. **[Working]**
+
 ### References
 
 - [How to use ADB to send touch events to device using sendevent command?](https://stackoverflow.com/questions/3437686/how-to-use-adb-to-send-touch-events-to-device-using-sendevent-command)
