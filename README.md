@@ -22,6 +22,13 @@ Contre Sozial tries to eliminate the biggest problem in social media networks, t
 
 > Detecting the foreground running overlay activities simultaneously to trigger the main activity which observes touch events in real-time using the trained model provides precise doomscrolling duration.
 
+### Internal input event handling in the Linux kernel and the Android userspace
+
+<p align="center">
+    <img alt="Event propagation flow on Android" src="https://raw.githubusercontent.com/0x48piraj/Contre-Sozial/www/assets/event-propagation-flow-on-android.png"><br>
+    <i>Event propagation flow on Android</i>
+</p>
+
 ### Problems in getting global touch events
 
 - Putting a transparent layout which covers the phone screen and then receive the touch events and dynamically removing the glass so that the event could be passed to below the glass and then dynamically inserting the glass again. But the drawback was that it require two times tap which is not feasible (first tap would give the touch coordinates and second would be passed below).
@@ -44,7 +51,7 @@ The `getevent` tool runs on the device and provides information about input devi
 adb shell getevent
 ```
 
-The following logcat from **Helio G95 Android Q** shows a swipe gesture for a touchscreen using the Linux input protocol. The `-l` option displays textual labels.
+The following logcat of executing `getevent` command from **Helio G95 Android Q** shows a swipe gesture for a touchscreen using the Linux input protocol. The `-l` option displays textual labels.
 
 ```
 <...>
@@ -85,6 +92,10 @@ The following logcat from **Helio G95 Android Q** shows a swipe gesture for a to
 /dev/input/event2: EV_SYN       SYN_REPORT           00000000
 ^C
 ```
+
+`BTN_TOUCH DOWN` and `BTN_TOUCH UP` indicate the beginning and the end of the touch, `ABS_MT_POSITION_X` and `ABS_MT_POSITION_Y` represent the touch’s x and y positions.
+
+ As an example, a simple touchscreen press-release event generates around 19 input events. For a complete list of the applicable events’ types and codes, refer to **linux/input.h**<sup>[1](https://android.googlesource.com/kernel/msm.git/+/android-msm-hammerhead-3.4-kk-r1/include/linux/input.h)</sup>.
 
 ##### Record
 
