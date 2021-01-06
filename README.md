@@ -35,7 +35,7 @@ Contre Sozial tries to eliminate the biggest problem in social media networks, t
 
 - Using the flag `FLAG_WATCH_OUTSIDE_TOUCH` ([Monitor Screen Touch Event in Android](http://jhshi.me/2014/11/09/monitor-screen-touch-event-in-android/index.html)) but getting touch coordinates as (0,0) as the Android framework imposes security that no other process can get touch points inside other process.
 
-- Running command `adb shell getevent -l` through code but it does not accepts touch events (although, using `adb shell sendevent` enables one to send global touch events.
+- Running the `getevent` command natively through code requires `su`. On a different note, using `sendevent` enables one to send global touch events.
 
 #### Gist
 
@@ -51,7 +51,7 @@ The `getevent` tool runs on the device and provides information about input devi
 adb shell getevent
 ```
 
-The following logcat of executing `getevent` command from **Helio G95 Android Q** shows a swipe gesture for a touchscreen using the Linux input protocol. The `-l` option displays textual labels.
+The following logcat of executing `getevent` command from **Helio G95 Android Q** shows a swipe gesture for a touchscreen using the Linux input protocol. The `-l` option displays textual descriptive labels.
 
 ```
 <...>
@@ -93,9 +93,26 @@ The following logcat of executing `getevent` command from **Helio G95 Android Q*
 ^C
 ```
 
-`BTN_TOUCH DOWN` and `BTN_TOUCH UP` indicate the beginning and the end of the touch, `ABS_MT_POSITION_X` and `ABS_MT_POSITION_Y` represent the touch’s x and y positions.
+Where each line represents an event's `device type code value`. `BTN_TOUCH DOWN` and `BTN_TOUCH UP` indicate the beginning and the end of the touch, `ABS_MT_POSITION_X` and `ABS_MT_POSITION_Y` represent the touch’s x and y positions. To put it in perspective, a simple touchscreen press-release event generates around 19 input events.
 
- As an example, a simple touchscreen press-release event generates around 19 input events. For a complete list of the applicable events’ types and codes, refer to **linux/input.h**<sup>[1](https://android.googlesource.com/kernel/msm.git/+/android-msm-hammerhead-3.4-kk-r1/include/linux/input.h)</sup>.
+Using the `-t` option we can also record the timestamps. The touch data is in the following output format &mdash;
+
+**Timestamp**|**Device**|**Type**|**Code**|**Value**
+:-----:|:-----:|:-----:|:-----:|:-----:
+[   97610.867783]|/dev/input/event2|0003|0039|00001569
+[   97610.867783]|/dev/input/event2|0001|014a|00000001
+[   97610.867783]|/dev/input/event2|0003|0032|0000000b
+[   97610.867783]|/dev/input/event2|0003|0030|0000000b
+...|...|...|...|...
+[   97610.995255]|/dev/input/event2|0003|0036|00000515
+[   97610.995255]|/dev/input/event2|0000|0000|00000000
+[   97611.004105]|/dev/input/event2|0003|0039|ffffffff
+[   97611.004105]|/dev/input/event2|0001|014a|00000000
+[   97611.004105]|/dev/input/event2|0000|0000|00000000
+
+**NOTE:** `getevent` timestamps use the format **$SECONDS.$MICROSECONDS** in the `CLOCK_MONOTONIC` timebase. This data-format is not ideal as it is **relative** to an arbitrary time in the system.
+
+For a complete list of the applicable events’ types and codes, refer to **linux/input.h**<sup>[1](https://android.googlesource.com/kernel/msm.git/+/android-msm-hammerhead-3.4-kk-r1/include/linux/input.h)</sup>.
 
 ##### Record
 
@@ -122,7 +139,9 @@ done
 
 - [Touch Devices - Android Open Source Project](https://source.android.com/devices/input/touch-devices)
 - [Getevent - Android Open Source Project](https://source.android.com/devices/input/getevent)
+- [linux - Difference between CLOCK_REALTIME and CLOCK_MONOTONIC? - Stack Overflow](https://stackoverflow.com/questions/3523442/difference-between-clock-realtime-and-clock-monotonic)
 - [include/linux/input.h - kernel/msm.git - Git at Google](https://android.googlesource.com/kernel/msm.git/+/android-msm-hammerhead-3.4-kk-r1/include/linux/input.h)
 - [android - ADB Shell Input Events - Stack Overflow](https://stackoverflow.com/questions/7789826/adb-shell-input-events/8483797#8483797)
 - [Android - Inactivity/Activity regardless of top app - Stack Overflow](https://stackoverflow.com/questions/18882331/android-inactivity-activity-regardless-of-top-app)
+- [dumpsys - Android Developers](https://developer.android.com/studio/command-line/dumpsys)
 - [Year in a word: Doomscrolling](https://www.ft.com/content/797ff58c-ab23-4197-9938-2bce8be43ff7)
