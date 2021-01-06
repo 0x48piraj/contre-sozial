@@ -127,7 +127,7 @@ $ adb shell getevent | grep --line-buffered ^/ | tee /tmp/touch-events.log
 ```python
 while True:
  if (RunningActivity is "com.instagram.android" or "com.linkedin.android" or "com.twitter.android" or "..."):
-  # subroutine for detecting swipe gestures
+  detect_swipe_gesture() # subroutine
  else
   print "Sozials are not running."
 ```
