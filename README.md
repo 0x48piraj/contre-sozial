@@ -124,15 +124,12 @@ $ adb shell getevent | grep --line-buffered ^/ | tee /tmp/touch-events.log
 
 #### Pseudocode
 
-```bash
-while true; do
- if [[ `dumpsys activity activities | grep mResumedActivity | grep -e com.instagram.android -e com.linkedin.android -e com.twitter.android` ]]; then
-  getevent -l | grep --line-buffered ^/ | tee /tmp/android-touch-events.log
+```python
+while True:
+ if (RunningActivity is "com.instagram.android" or "com.linkedin.android" or "com.twitter.android" or "..."):
   # subroutine for detecting swipe gestures
  else
-  echo "Sozials are not running."
- fi
-done
+  print "Sozials are not running."
 ```
 
 ### References
