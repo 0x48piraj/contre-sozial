@@ -6,7 +6,7 @@
 
 ### Description
 
-Contre Sozial tries to eliminate the biggest problem in social media networks, that is, doomscrolling using the power of machine learning algorithms.
+Contre Sozial tries to eliminate the biggest problem in social media networks, that is, doomscrolling using the power of machine learning algorithms. It records the swipes made on social media apps precisely in real-time. It ignores messaging or creation of stories, just focuses on the worst attribute of social media apps, i.e. doom scrolling for hours.
 
 #### Stratagem
 
@@ -142,3 +142,4 @@ while True:
 - [Android - Inactivity/Activity regardless of top app - Stack Overflow](https://stackoverflow.com/questions/18882331/android-inactivity-activity-regardless-of-top-app)
 - [dumpsys - Android Developers](https://developer.android.com/studio/command-line/dumpsys)
 - [Year in a word: Doomscrolling](https://www.ft.com/content/797ff58c-ab23-4197-9938-2bce8be43ff7)
+- [SMASheD: Sniffing and Manipulating Android Sensor Data for Offensive Purposes - IEEE Journals & Magazine](https://ieeexplore.ieee.org/document/7605458)
